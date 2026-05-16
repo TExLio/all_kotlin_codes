@@ -1,0 +1,12 @@
+ val name = arrayOf("Lion")
+
+        val image = arrayOf(R.drawable.Lion)
+        
+        val myAdapter = CustomAdapter(this, name, image)
+
+        listView.adapter = myAdapter
+        
+        listView.setOnItemClickListener { adapterView, view, i, id ->  
+            val stringText = adapterView.getItemAtPosition(i).toString()
+            Toast.makeText(this, stringText, Toast.LENGTH_SHORT).show()
+        }
