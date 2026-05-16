@@ -1,3 +1,5 @@
+val Id = 12345
+
 val notification = NotificationCompat.Builder(this)
     .setSmallIcon(android.R.drawable.ic_dialog_info)
     .setContentTitle("Notification")
@@ -11,7 +13,7 @@ val mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as Not
 //to teleport you add
 
 val CHANNEL_ID = "chanenel_01"
-val Id = 12345
+
 
 val importance = NotificationManager.IMPORTANCE_HIGH
 val mChannel = NotificationChannel(CHANNEL_ID, "channel name", importance)
