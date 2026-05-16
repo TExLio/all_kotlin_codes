@@ -7,3 +7,11 @@ val notification = NotificationCompat.Builder(this)
 val mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager {
     mNotificationManager.notify(id, notification)
 }
+
+//to teleport you add
+
+val CHANNEL_ID = "chanenel_01"
+val Id = 12345
+
+val importance = NotificationManager.IMPORTANCE_HIGH
+val mChannel = NotificationChannel(CHANNEL_ID, "channel name", importance)
