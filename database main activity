@@ -1,0 +1,67 @@
+lateinit var mydatabase: MyDatabase
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        mydatabase = MyDatabase(this)
+    }
+
+    fun addProduct(view: View) {
+
+        val nameProduct = productName.text.toString()
+        val quantityProduct = productQuantity.text.toString()
+
+        if (nameProduct.isNotEmpty() && quantityProduct.isNotEmpty()) {
+
+            mydatabase.addProduct(nameProduct, quantityProduct.toInt())
+
+            Toast.makeText(this, "Product Added", Toast.LENGTH_SHORT).show()
+
+            productName.text.clear()
+            productQuantity.text.clear()
+
+        } else {
+
+            Toast.makeText(this, "Enter all fields", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun deleteProduct(view: View) {
+
+        val nameProduct = productName.text.toString()
+
+        if (nameProduct.isNotEmpty()) {
+
+            mydatabase.deleteProduct(nameProduct)
+
+            Toast.makeText(this, "Product Deleted", Toast.LENGTH_SHORT).show()
+
+        } else {
+
+            Toast.makeText(this, "Enter product name", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun findProduct(view: View) {
+
+        val nameProduct = productName.text.toString()
+
+        if (nameProduct.isNotEmpty()) {
+
+            val result = mydatabase.findProduct(nameProduct)
+
+            resultText.text = result.joinToString("\n")
+
+        } else {
+
+            Toast.makeText(this, "Enter product name", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun databaseToString(view: View) {
+
+        val result = mydatabase.databaseToString()
+
+        resultText.text = result.joinToString("\n")
+    
