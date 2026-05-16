@@ -1,0 +1,32 @@
+val arrayList = ArrayList<String>()
+
+button.setOnClickListener {
+
+    val inflater = LayoutInflater.from(this)
+    val view = inflater.inflate(R.layout.dialog, null)
+
+    val builder = AlertDialog.Builder(this)
+    builder.setView(view)
+
+    val dialog = builder.create()
+    dialog.show()
+
+    view.add.setOnClickListener {
+
+        val textData = view.inputData.text.toString()
+
+        arrayList.add(textData)
+
+        val myAdapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_expandable_list_item_1,
+            arrayList
+        )
+
+        listView.adapter = myAdapter
+    }
+
+    view.cancel.setOnClickListener {
+        dialog.cancel()
+    }
+}
