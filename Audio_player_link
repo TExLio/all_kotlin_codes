@@ -1,0 +1,14 @@
+ val mediaPlayer = MediaPlayer()
+
+        play.setOnClickListener {
+
+            if(play.text=="start"){
+                mediaPlayer.reset()
+                mediaPlayer.setDataSource("https://")
+                mediaPlayer.prepare()
+                mediaPlayer.start()
+                play.text="stop"
+            } else if (play.text=="stop")
+                mediaPlayer.stop()
+            play.text="start"
+        }
