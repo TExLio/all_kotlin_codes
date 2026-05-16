@@ -1,0 +1,9 @@
+val notification = NotificationCompat.Builder(this)
+    .setSmallIcon(android.R.drawable.ic_dialog_info)
+    .setContentTitle("Notification")
+    .setContentText("This is a normal notification")
+    .build()
+
+val mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager {
+    mNotificationManager.notify(id, notification)
+}
