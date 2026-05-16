@@ -1,1 +1,8 @@
+val arrayList = ArrayList<String>()
 
+button.setOnClickListener{
+val name: String? = editText.text.toString()
+arrayList.add(name!!)
+val cA = CustomAdapter(this, arrayList)
+listView.adapter = cA
+}
