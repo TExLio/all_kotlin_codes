@@ -3,7 +3,7 @@ class customAdapter (context: Context?, private val objects: Array<out String?>,
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View{
         
         val l: LayoutInflater = LayoutInflater.from(context)
-        val customView: View = l.inflate(R.layout.item,parent, false)
+        val customView: View = l.inflate(R.layout.item, parent, false)
         
         customView.textView.text = objects!![position]
         customView.imageView.setImageResource(image!![position])
