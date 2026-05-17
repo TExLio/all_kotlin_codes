@@ -1,4 +1,4 @@
-class customAdapter (context: Context?, private val objects: Array<out String?>, private val image: Array<out Int?>){
+class customAdapter (context: Context?, private val objects: Array<out String?>, private val image: Array<out Int?>) : ArrayAdapter<String>(context, R.layout.item, objects) {
     
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View{
         
