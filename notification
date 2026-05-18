@@ -8,8 +8,6 @@ val mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as Not
 
 mNotificationManager.createNotificationChannel(mChannel)
 
-val intent = Intent(this, MainActivity::class.java)
-
 val pendingIntent = PendingIntent.getActivity(this,0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
 val notification = NotificationCompat.Builder(this, CHANNEL_ID)
