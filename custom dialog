@@ -1,5 +1,3 @@
-val arrayList = ArrayList<String>()
-
 button.setOnClickListener {
 
     val inflater = LayoutInflater.from(this)
