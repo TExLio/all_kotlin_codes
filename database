@@ -1,27 +1,80 @@
-import android.content.ContentValues
-import android.content.Context
-import android.database.Cursor
-import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteOpenHelper
+class myDataBase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION){
 
-class MyDatabase(context: Context) :
-    SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+    fun addProducts(productName: String, name: String, productQuantity: String, quantity : Int, productId : String, id: Int){
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(productName, name)
+        values.put(productQuantity, quantity)
+        values.put(productId, id)
 
-    companion object {
+        db.insert(DATABASE_TABLE_NAME, null, values)
+        db.close()
+    }
 
-        const val KEY_ID = "_ID"
-        const val P_NAME = "NAME"
-        const val P_QUANTITY = "QUANTITY"
-        const val DATABASE_TABLE_NAME = "products"
+    fun deleteProducts(productName: String){
+        val db = writableDatabase
+        db.execSQL("delete from $DATABASE_TABLE_NAME where $NAME = $productName")
+    }
 
-        private const val DATABASE_NAME = "data.db"
-        private const val DATABASE_VERSION = 1
+    fun findProduct(productName: String) : Array<String>{
 
-        private const val DATABASE_CREATE =
-            "CREATE TABLE $DATABASE_TABLE_NAME (" +
-                    "$KEY_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    "$P_NAME TEXT NOT NULL, " +
-                    "$P_QUANTITY INTEGER);"
+        var dbString: Array<String>
+        val db = writableDatabase
+        val query = "select * from $DATABASE_TABLE_NAME where $NAME = $productName"
+
+        val c = db.rawQuery(query, null)
+
+        dbString = Array(c.count) {""}
+
+        c.moveToFirst()
+
+        while(!c.isAfterLast){
+            for (i in dbString.indices){
+
+                if (
+                c.getString(c.getColumnIndexOrThrow(ID)) != null &&
+                c.getString(c.getColumnIndexOrThrow(NAME)) != null &&
+                c.getString(c.getColumnIndexOrThrow(QUANTITY)) != null
+                ) {
+                    dbString[i] += c.getString(c.getColumnIndexOrThrow(ID)) + "_" +
+                                   c.getString(c.getColumnIndexOrThrow(NAME)) + "_" +
+                                   c.getString(c.getColumnIndexOrThrow(QUANTITY)) + "_"
+                }
+                c.moveToNext()
+            }
+        }
+        c.close()
+        return dbString
+    }
+    fun databaseToString(productName: String) : Array<String>{
+
+        var dbString: Array<String>
+        val db = writableDatabase
+        val query = "select * from $DATABASE_TABLE_NAME where 1"
+
+        val c = db.rawQuery(query, null)
+
+        dbString = Array(c.count) {""}
+
+        c.moveToFirst()
+
+        while(!c.isAfterLast){
+            for (i in dbString.indices){
+
+                if (
+                    c.getString(c.getColumnIndexOrThrow(ID)) != null &&
+                    c.getString(c.getColumnIndexOrThrow(NAME)) != null &&
+                    c.getString(c.getColumnIndexOrThrow(QUANTITY)) != null
+                ) {
+                    dbString[i] += c.getString(c.getColumnIndexOrThrow(ID)) + "_" +
+                            c.getString(c.getColumnIndexOrThrow(NAME)) + "_" +
+                            c.getString(c.getColumnIndexOrThrow(QUANTITY)) + "_"
+                }
+                c.moveToNext()
+            }
+        }
+        c.close()
+        return dbString
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -30,102 +83,19 @@ class MyDatabase(context: Context) :
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         db?.execSQL("DROP TABLE IF EXISTS $DATABASE_TABLE_NAME")
-        onCreate(db)
     }
 
-    fun addProduct(name: String, quantity: Int) {
-        val db = this.writableDatabase
-        val values = ContentValues()
+    companion object{
+        val ID = "id"
+        val NAME = "name"
+        val QUANTITY = "quantity"
 
-        values.put(P_NAME, name)
-        values.put(P_QUANTITY, quantity)
-
-        db.insert(DATABASE_TABLE_NAME, null, values)
-        db.close()
-    }
-
-    fun deleteProduct(name: String) {
-        val db = this.writableDatabase
-        db.delete(DATABASE_TABLE_NAME, "$P_NAME=?", arrayOf(name))
-        db.close()
-    }
-
-    fun findProduct(productname: String): Array<String> {
-
-        var dbString: Array<String>
-
-        val db: SQLiteDatabase = writableDatabase
-
-        val query =
-            "SELECT * FROM $DATABASE_TABLE_NAME WHERE $P_NAME = \"$productname\""
-
-        val c: Cursor = db.rawQuery(query, null)
-
-        dbString = Array(c.count) { "" }
-
-        c.moveToFirst()
-
-        while (!c.isAfterLast) {
-
-            for (i in dbString.indices) {
-
-                if (
-                    c.getString(c.getColumnIndexOrThrow(KEY_ID)) != null &&
-                    c.getString(c.getColumnIndexOrThrow(P_NAME)) != null &&
-                    c.getString(c.getColumnIndexOrThrow(P_QUANTITY)) != null
-                ) {
-
-                    dbString[i] =
-                        c.getString(c.getColumnIndexOrThrow(KEY_ID)) + "_ " +
-                                c.getString(c.getColumnIndexOrThrow(P_NAME)) + " " +
-                                c.getString(c.getColumnIndexOrThrow(P_QUANTITY))
-                }
-
-                c.moveToNext()
-            }
-        }
-
-        c.close()
-
-        return dbString
-    }
-
-    fun databaseToString(): Array<String> {
-
-        var dbString: Array<String>
-
-        val db: SQLiteDatabase = writableDatabase
-
-        val query = "SELECT * FROM $DATABASE_TABLE_NAME WHERE 1"
-
-        val c: Cursor = db.rawQuery(query, null)
-
-        dbString = Array(c.count) { "" }
-
-        c.moveToFirst()
-
-        while (!c.isAfterLast) {
-
-            for (i in dbString.indices) {
-
-                if (
-                    c.getString(c.getColumnIndexOrThrow(KEY_ID)) != null &&
-                    c.getString(c.getColumnIndexOrThrow(P_NAME)) != null &&
-                    c.getString(c.getColumnIndexOrThrow(P_QUANTITY)) != null
-                ) {
-
-                    dbString[i] =
-                        c.getString(c.getColumnIndexOrThrow(KEY_ID)) + "_ " +
-                                c.getString(c.getColumnIndexOrThrow(P_NAME)) + " " +
-                                c.getString(c.getColumnIndexOrThrow(P_QUANTITY))
-                }
-
-                c.moveToNext()
-            }
-        }
-
-        c.close()
-
-        return dbString
+        val DATABASE_TABLE_NAME = "products"
+        private val DATABASE_NAME = "data.db"
+        private val DATABASE_VERSION = 1
+        private val DATABASE_CREATE = "create table $DATABASE_TABLE_NAME (" +
+                "$ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "$NAME TEXT NOT NULL, " +
+                "$QUANTITY INTEGER);"
     }
 }
