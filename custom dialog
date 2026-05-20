@@ -16,11 +16,7 @@ button.setOnClickListener {
         val textData = view.inputData.text.toString()
         arrayList.add(textData)
 
-        val myAdapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_expandable_list_item_1,
-            arrayList
-        )
+        val myAdapter = ArrayAdapter( this,android.R.layout.simple_expandable_list_item_1, arrayList)
 
         listView.adapter = myAdapter
     }
