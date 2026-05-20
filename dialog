@@ -4,7 +4,7 @@ builder.setTitle("Title")
 builder.setMessage("message")
 
 builder.setPositiveButton("OK") { dialog, _ ->
-    dialog.dismiss()
+
 }
 
 builder.setNegativeButton("Cancel") { dialog, _ ->
