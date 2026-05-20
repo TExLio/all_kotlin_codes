@@ -2,21 +2,17 @@ val arrayList = ArrayList<String>()
 
 button.setOnClickListener {
 
-    val view = layoutInflater.inflate(R.layout.dialog, null)
+    val binding = DialogBinding.inflate(layoutInflater)
 
     val dialog = AlertDialog.Builder(this)
-        .setView(view)
+        .setView(binding.root)
         .create()
 
     dialog.show()
 
-    val inputData = view.findViewById<EditText>(R.id.inputData)
-    val add = view.findViewById<Button>(R.id.add)
-    val cancel = view.findViewById<Button>(R.id.cancel)
+    binding.add.setOnClickListener {
 
-    add.setOnClickListener {
-
-        val textData = inputData.text.toString()
+        val textData = binding.inputData.text.toString()
 
         arrayList.add(textData)
 
@@ -25,7 +21,7 @@ button.setOnClickListener {
         dialog.dismiss()
     }
 
-    cancel.setOnClickListener {
+    binding.cancel.setOnClickListener {
         dialog.dismiss()
     }
 }
