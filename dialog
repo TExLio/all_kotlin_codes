@@ -1,4 +1,4 @@
-builder = AlertDialog.Builder(this)
+val builder = AlertDialog.Builder(this)
 
         builder.setTitle("Exit")
         builder.setMessage("Are you sure you want to close the app?")
