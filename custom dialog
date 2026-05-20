@@ -14,7 +14,6 @@ button.setOnClickListener {
     view.add.setOnClickListener {
 
         val textData = view.inputData.text.toString()
-
         arrayList.add(textData)
 
         val myAdapter = ArrayAdapter(
