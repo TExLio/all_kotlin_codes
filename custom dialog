@@ -1,4 +1,4 @@
-val items = arrayListOf<String>()
+val arrayList = arrayListOf<String>()
 
 button.setOnClickListener {
 
@@ -12,7 +12,7 @@ button.setOnClickListener {
 
     dialogView.add.setOnClickListener {
 
-        items.add(dialogView.inputData.text.toString())
+        arrayList.add(dialogView.inputData.text.toString())
 
         listView.adapter = ArrayAdapter(this,android.R.layout.simple_list_item_1,items)
     }
