@@ -1,4 +1,4 @@
-val ArrayList = ArrayList<String>()
+val arrayList = ArrayList<String>()
 
 button.setOnClickListener {
 
