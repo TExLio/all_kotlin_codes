@@ -1,36 +1,23 @@
-val arrayList = ArrayList<String>()
+val items = arrayListOf<String>()
 
 button.setOnClickListener {
 
-    val inflater = LayoutInflater.from(this)
+    val dialogView = layoutInflater.inflate(R.layout.dialog, null)
 
-    val view = inflater.inflate(R.layout.dialog, null)
-
-    val builder = AlertDialog.Builder(this)
-
-    builder.setView(view)
-
-    val dialog = builder.create()
+    val dialog = AlertDialog.Builder(this)
+        .setView(dialogView)
+        .create()
 
     dialog.show()
 
-    view.add.setOnClickListener {
+    dialogView.add.setOnClickListener {
 
-        val textData = view.inputData.text.toString()
+        items.add(dialogView.inputData.text.toString())
 
-        arrayList.add(textData)
-
-        val myAdapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_list_item_1,
-            arrayList
-        )
-
-        listView.adapter = myAdapter
+        listView.adapter = ArrayAdapter(this,android.R.layout.simple_list_item_1,items)
     }
 
-    view.cancel.setOnClickListener {
-
+    dialogView.cancel.setOnClickListener {
         dialog.dismiss()
     }
 }
