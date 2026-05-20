@@ -1,15 +1,15 @@
 val builder = AlertDialog.Builder(this)
 
-        builder.setTitle("Exit")
-        builder.setMessage("Are you sure you want to close the app?")
+builder.setTitle("Title")
+builder.setMessage("message")
 
-        val dialog = builder.create()
-        dialog.show()
+builder.setPositiveButton("OK") { dialog, _ ->
+    dialog.dismiss()
+}
 
-        builder.setPositiveButton("OK") { _: DialogInterface, _: Int ->
-            finish()
-        }
+builder.setNegativeButton("Cancel") { dialog, _ ->
+    dialog.dismiss()
+}
 
-        builder.setNegativeButton("Cancel") { _: DialogInterface, _: Int ->
-            dialog.dismiss()
-        }
+val dialog = builder.create()
+dialog.show()
